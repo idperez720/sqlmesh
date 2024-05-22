@@ -357,14 +357,10 @@ class GithubController:
 
     @property
     def pr_environment_name(self) -> str:
-        return Environment.normalize_name(
-            "_".join(
-                [
-                    self.bot_config.pr_environment_name or self._event.pull_request_info.repo,
-                    str(self._event.pull_request_info.pr_number),
-                ]
-            )
-        )
+        name_parts = [self.bot_config.pr_environment_name or self._event.pull_request_info.repo]
+        if self.bot_config.pr_number_in_env_name:
+            name_parts.append(str(self._event.pull_request_info.pr_number))
+        return Environment.normalize_name("_".join(name_parts))
 
     @property
     def do_required_approval_check(self) -> bool:

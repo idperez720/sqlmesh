@@ -34,6 +34,7 @@ class GithubCICDBotConfig(BaseConfig):
     pr_include_unmodified: t.Optional[bool] = None
     run_on_deploy_to_prod: bool = True
     pr_environment_name: t.Optional[str] = None
+    pr_number_in_env_name: bool = True
 
     @model_validator(mode="before")
     @model_validator_v1_args
